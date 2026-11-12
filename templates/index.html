@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VIHARA TECH | Student Performance Prediction</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e8f0ff, #dce7f7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            color: #163b70;
+            font-size: 27px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .header h3 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd5e0;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+            background: #fafcff;
+        }
+
+        input:focus, select:focus {
+            border-color: #2463a6;
+            box-shadow: 0 0 4px rgba(36, 99, 166, 0.3);
+        }
+
+        .button-group {
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+        }
+
+        button {
+            flex: 1;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .predict-btn {
+            background: #174b85;
+            color: white;
+        }
+
+        .predict-btn:hover {
+            background: #10345f;
+        }
+
+        .reset-btn {
+            background: #e5eaf1;
+            color: #333;
+        }
+
+        .reset-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 18px;
+            background: #eaf4ff;
+            border-left: 5px solid #174b85;
+            border-radius: 7px;
+            text-align: center;
+        }
+
+        .result h3 {
+            color: #174b85;
+            margin-bottom: 8px;
+        }
+
+        .result p {
+            color: #222;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        @media(max-width: 550px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h2>VIHARA TECH</h2>
+            <h3>Student Performance Prediction</h3>
+            <p>Predict student performance using Machine Learning</p>
+        </div>
+
+        <form action="/predict" method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Hours Studied</label>
+                    <input type="number"
+                           name="Hours Studied"
+                           placeholder="Enter study hours"
+                           min="0"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Previous Scores</label>
+                    <input type="number"
+                           name="Previous Scores"
+                           placeholder="Enter previous scores"
+                           min="0"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Extracurricular Activities</label>
+                    <select name="Extracurricular Activities" required>
+                        <option value="">Select Option</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Sleep Hours</label>
+                    <input type="number"
+                           name="Sleep Hours"
+                           placeholder="Enter sleep hours"
+                           min="0"
+                           max="24"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Sample Question Papers Practiced</label>
+                    <input type="number"
+                           name="Sample Question Papers Practiced"
+                           placeholder="Enter number of papers"
+                           min="0"
+                           required>
+                </div>
+
+            </div>
+
+            <div class="button-group">
+
+                <button type="submit" class="predict-btn">
+                    Predict Performance
+                </button>
+
+                <button type="reset" class="reset-btn">
+                    Reset
+                </button>
+
+            </div>
+
+        </form>
+
+        {% if prediction_text %}
+        <div class="result">
+            <h3>Predicted Performance Index</h3>
+            <p>{{ prediction_text }}</p>
+        </div>
+        {% endif %}
+
+        <div class="footer">
+            Developed using Python, Flask and Multiple Linear Regression
+            <br><br>
+            © VIHARA TECH
+        </div>
+
+    </div>
+
+</body>
+</html>
